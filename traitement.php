@@ -61,6 +61,7 @@ if(isset($_GET["action"])) {
                         WHERE email = :email");
                         $requete->execute(["email" => $email]);
                         $user = $requete->fetch();
+                        //var_dump NE PASSE PAS VOIR OU EST LE PROBLEME
                         var_dump($user);die;
                     }
                 }
