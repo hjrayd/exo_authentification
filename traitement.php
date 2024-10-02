@@ -1,4 +1,7 @@
 <?php
+
+session_start();
+
 if(isset($_GET["action"])) {
     switch($_GET["action"]) {
         case "register":
@@ -44,6 +47,7 @@ if(isset($_GET["action"])) {
                     } else {
                         //probleme de saisie dans les champs de formulaire
                     }
+                    header("Location: register.php"); exit;
             break;
 
             case "login":
@@ -61,14 +65,16 @@ if(isset($_GET["action"])) {
                         WHERE email = :email");
                         $requete->execute(["email" => $email]);
                         $user = $requete->fetch();
-                        //var_dump NE PASSE PAS VOIR OU EST LE PROBLEME
-                        var_dump($user);die;
+                        //var_dump($user);die;
                     }
                 }
        
                 //connexion à l'application
                 header ("Location: login.php"); exit;
             break;
+
+            case "Logout":
+                break;
 
             }
         }
