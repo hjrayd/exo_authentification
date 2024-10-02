@@ -66,14 +66,36 @@ if(isset($_GET["action"])) {
                         $requete->execute(["email" => $email]);
                         $user = $requete->fetch();
                         //var_dump($user);die;
+                        //est ce que user existe
+                        if($user) {
+                            //password de la base de donnée
+                            $hash = $user["password"];
+                            if(password_verify($password, $hash)) {
+                                $_SESSION["user"] = $user;
+                                header("Location: home.php");exit;
+                            } else {
+                                header("Location:login.php");exit;
+                                //msg utilisateur inconnu ou mdp inccorect
+                            }
+                        } else {
+                            //msg user inconnu ou mdp incorrect
+                            header("Location:login.php");exit;
+                        }
                     }
                 }
+            
        
                 //connexion à l'application
                 header ("Location: login.php"); exit;
             break;
 
-            case "Logout":
+            case"profil":
+                header("Location: profil.php");exit;
+            break;
+
+            case "logout":
+                unset($_SESSION["user"]);
+                header("Location: home.php");exit;
                 break;
 
             }
